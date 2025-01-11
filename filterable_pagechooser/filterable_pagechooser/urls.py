@@ -7,6 +7,9 @@ from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
+from .views import (
+    FilterPageBrowseView,
+)
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
@@ -14,7 +17,6 @@ urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
     path("search/", search_views.search, name="search"),
 ]
-
 
 if settings.DEBUG:
     from django.conf.urls.static import static
@@ -28,6 +30,16 @@ urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
+    path(
+        "filter-choose-page/",
+        FilterPageBrowseView.as_view(),
+        name="filter_wagtail_admin_choose_page"
+    ),
+    path(
+        "filter-choose-page/<int:parent_page_id>/",
+        FilterPageBrowseView.as_view(),
+        name="filter_wagtail_admin_choose_page_child",
+    ),
     path("", include(wagtail_urls)),
     # Alternatively, if you want Wagtail pages to be served from a subpath
     # of your site, rather than the site root:
