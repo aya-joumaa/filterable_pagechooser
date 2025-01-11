@@ -17,7 +17,6 @@ class FilterPageBrowseView(BrowseView):
 
         self.user_perm = None
         perms_form = UserPermsForm(request.GET)
-
         if perms_form.is_valid():
             self.user_perm = perms_form.cleaned_data.get(
                 "user_perms", None

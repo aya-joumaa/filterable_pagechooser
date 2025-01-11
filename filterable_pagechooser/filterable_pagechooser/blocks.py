@@ -10,6 +10,7 @@ class FilterPageChooserBlock(blocks.PageChooserBlock):
         filters_info = custom_args.get("filters_info", None)
 
         return FilterAdminPageChooser(
-            target_models=self.target_model, can_choose_root=self.can_choose_root,
+            target_models=self.target_model,
+            can_choose_root=self.can_choose_root,
             user_perms=filters_info,
         )
